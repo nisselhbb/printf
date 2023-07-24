@@ -9,45 +9,26 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
+	int i =  0;
+	int num = 0;
 
 	va_start(args, format);
 
-	int num = 0;
-	char specifier = *format;
-	const char *string;
-
-	while (*format != '\0')
+	if (!format || (format[0] == '%' && !format[1]))
+		return (-1);
+	while (format[i])
 	{
-		if (*format == '%')
+		if (format[i] == '%')
 		{
-			format++;
-	switch (specifier)
-	{
-		case 'c':
-			_putchar(va_arg(args, int));
-			num++;
-			break;
-		case 's':
-			string = va_arg(args, const char*);
-			while (*string != '\0')
-			{
-				_putchar(*string);
-				num++;
-				string++;
-			}
-			break;
-		case '%':
-			_putchar('%');
-			num++;
-			break;
-		default:
-			_putchar('%');
-			_putchar(specifier);
-			num = num + 2;
-	}
+			i++;
+			if (format[i] == 'S')
+				num = num + print_special_string(va_arg(args, char *));
+			else
+				num = num + print_char_string_or_percent(format[i], args);
 		}
-	format++;
+		i++;
 	}
 	va_end(args);
 	return (num);
 }
+
