@@ -17,16 +17,16 @@ int print_char_string_or_percent(char specifier, va_list args);
  */
 int print_char_string_or_percent(char specifier, va_list args)
 {
-        switch (specifier)
-        {
-                case 'c':
-                        return (print_char(args));
-                case 's':
-                        return (print_string(args));
-                case '%':
-                        return (_putchar('%'));
-        default:
-        return (_putchar('%') + _putchar(specifier));
-        }
+	switch (specifier)
+	{
+		case 'c':
+			return (print_char(args));
+		case 's':
+			return (print_string(args));
+		case '%':
+			return (_putchar('%'));
+		default:
+			return (_putchar('%') + _putchar(specifier));
+	}
 }
 #endif
