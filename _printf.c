@@ -9,19 +9,18 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
-	va_start (args, format);
+
+	va_start(args, format);
 
 	int num = 0;
+	char specifier = *format;
+	const char *string;
 
 	while (*format != '\0')
 	{
 		if (*format == '%')
 		{
 			format++;
-
-	char specifier = *format;
-	const char *string = va_arg(args, const char*);
-
 	switch (specifier)
 	{
 		case 'c':
@@ -29,7 +28,8 @@ int _printf(const char *format, ...)
 			num++;
 			break;
 		case 's':
-			while (*string != NULL)
+			string = va_arg(args, const char*);
+			while (*string != '\0')
 			{
 				_putchar(*string);
 				num++;
@@ -44,11 +44,6 @@ int _printf(const char *format, ...)
 			_putchar('%');
 			_putchar(specifier);
 			num = num + 2;
-	}
-	else
-	{
-		_putchar(*format);
-		num++;
 	}
 		}
 	format++;
