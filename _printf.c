@@ -13,9 +13,10 @@ int _printf(const char *format, ...)
 
 	int num = 0;
 
-	while (*format != NULL)
+	while (*format != '\0')
 	{
 		if (*format == '%')
+		{
 			format++;
 
 	char specifier = *format;
@@ -49,6 +50,7 @@ int _printf(const char *format, ...)
 		_putchar(*format);
 		num++;
 	}
+		}
 	format++;
 	}
 	va_end(args);
