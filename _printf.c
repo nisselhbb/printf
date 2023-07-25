@@ -19,6 +19,7 @@ int _printf(const char *format, ...)
 		{
 			format++;
 			switch (*format)
+			{
 			case 'c':
 				_putchar(va_arg(args, int));
 				count++;
@@ -37,6 +38,7 @@ int _printf(const char *format, ...)
 				break;
 			default:
 				break;
+			}
 		}
 				else
 				{
