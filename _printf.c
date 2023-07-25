@@ -32,8 +32,8 @@ int _printf(const char *format, ...)
 			{
 				buffer[buff_ind++] = '%';
 				i++;
-				if (buff_ind == BURR_SIZE)
-					print_buffer(buffer, buff_ind);
+				if (buff_ind == BUFF_SIZE)
+					print_buffer(buffer, &buff_ind);
 				printed_chars++;
 			}
 			else if (format[i + 1] == 'c')
@@ -42,16 +42,16 @@ int _printf(const char *format, ...)
 				printed = print_char(list, buffer, width);
 				if (printed == -1)
 					return (-1);
-				print_chars += printed;
+				print_char += printed;
 				i++;
 			}
 			else if (format[i + 1] == 's')
 			{
 				width = va_arg(list, int);
-				printed = printe_string(list, buffer, width);
+				printed = print_string(list, buffer, width);
 				if (printed == -1)
 					return (-1);
-				print_chasr += printed;
+				print_char += printed;
 				i++;
 			}
 			else

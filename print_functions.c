@@ -8,7 +8,7 @@
  */
 void print_buffer(char buffer[], int *buff_ind)
 {
-	if (*buff_ind < 0)
+	if (*buff_ind > 0)
 		write(1, &buffer[0], *buff_ind);
 	*buff_ind = 0;
 }
@@ -23,6 +23,7 @@ void print_buffer(char buffer[], int *buff_ind)
 int print_char(va_list args, char buffer[], int width)
 {
 	int printed = 0, pad;
+	int *buff_ind;
 	char c = va_arg(args, int);
 
 	if (width < 0)
