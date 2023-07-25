@@ -1,53 +1,69 @@
 #include "main.h"
+void print_buffer(char buffer[], int *buff_ind);
 /**
  * _printf - function that produces output
  * according to a format
  * @format: a character string
- * Return: the number of characters
+ * Return: the number of character
  */
 int _printf(const char *format, ...)
 {
-	va_list args;
-	int count = 0;
-	char *str = va_arg(args, char *);
+	int i, printed = 0, printed_chars = 0;
+	int width, buff_ind = 0;
+	char buffer[BUFF_SIZE];
+	va_list list;
 
-	va_start(args, format);
+	if (format == NULL)
+		return (-1);
+	va_start(list, format);
 
-	while (*format != '\0')
+	for (i = 0; format && format[i] != '\0'; i++)
 	{
-		if (*format == '%')
+		if (format[i] != '%')
 		{
-			format++;
-			switch (*format)
+			buffer[buff_ind] = format[i];
+			if (buff_ind == BUFF_SIZE)
+				print_buffer(buffer, &buff_ind);
+			printed_chars++;
+		}
+		else
+		{
+			if (format[i + 1] == '%')
 			{
-			case 'c':
-				_putchar(va_arg(args, int));
-				count++;
-				break;
-			case 's':
-				while (*str != '\0')
-				{
-					_putchar(*str);
-					str++;
-					count++;
-				}
-				break;
-			case '%':
-				_putchar('%');
-				count++;
-				break;
-			default:
-				break;
+				buffer[buff_ind++] = '%';
+				i++;
+				if (buff_ind == BURR_SIZE)
+					print_buffer(buffer, buff_ind);
+				printed_chars++;
+			}
+			else if (format[i + 1] == 'c')
+			{
+				width = va_arg(list, int);
+				printed = print_char(list, buffer, width);
+				if (printed == -1)
+					return (-1);
+				print_chars += printed;
+				i++;
+			}
+			else if (format[i + 1] == 's')
+			{
+				width = va_arg(list, int);
+				printed = printe_string(list, buffer, width);
+				if (printed == -1)
+					return (-1);
+				print_chasr += printed;
+				i++;
+			}
+			else
+			{
+				buffer[buff_ind++] = format[i];
+				if (buff_ind == BUFF_SIZE)
+					print_buffer(buffer, &buff_ind);
+				printed_chars++;
 			}
 		}
-				else
-				{
-					_putchar(*format);
-					count++;
-				}
-				format++;
 	}
-	va_end(args);
-	return (count);
+	print_buffer(buffer, &buff_ind);
+	va_end(list);
+	return (printed_chars);
 }
-
