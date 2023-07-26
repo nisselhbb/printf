@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include "print_functions.c"
 #define UNUSED(x) (void)(x)
 #define BUFF_SIZE 1024
 
