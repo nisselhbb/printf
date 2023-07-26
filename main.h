@@ -37,7 +37,7 @@ struct fmt
  */
 typedef struct fmt fmt_t;
 
-
+void print_buffer(char buffer[], int *buff_ind);
 int handle_print(const char *fmt, int *i,
 		va_list list, char buffer[], int flags, int width, int precision, int size);
 
@@ -82,7 +82,7 @@ int print_non_printable(va_list types, char buffer[],
 int print_pointer(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 
-int print_rev(va_list types, char buffer[],
+int print_reverse(va_list types, char buffer[],
 	int flags, int width, int precision, int size);
 
 int print_rot13string(va_list types, char buffer[],
